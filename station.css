@@ -1,0 +1,13 @@
+.node.station{font:inherit;text-align:left;color:inherit;cursor:pointer}
+.node.station:hover,.node.station:focus-visible{border-color:#5d9771;outline:2px solid #b8d9bf;outline-offset:2px}
+.last-shift{font-size:10px;color:#416b50;margin-top:8px;padding-top:7px;border-top:1px solid #edf1ed}
+.stepper button:disabled{opacity:.4;cursor:not-allowed}
+#stationDialog{width:min(430px,calc(100vw - 28px))}
+#stationDialog .dialog-head h2{margin:5px 0 0}
+.station-summary{background:#f2f7f1;border-radius:9px;padding:15px;margin:18px 0}
+.station-summary span,.station-summary strong,.station-summary small{display:block}
+.station-summary span{font-size:10px;letter-spacing:.12em;color:#728b79;font-weight:800}
+.station-summary strong{font-size:27px;margin:4px 0}
+.station-summary small{font-size:11px;color:#73897b}
+.station-last{background:#fff9e7;padding:9px 11px;border-radius:7px}
+.station-last strong{color:#5f6c43}

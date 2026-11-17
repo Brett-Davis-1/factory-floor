@@ -26,4 +26,3 @@ Workers cost $4 per day even when unassigned. Raw goods storage starts at 10 uni
 Each day independently rolls a 15% chance for a machine breakdown, an employee absence, and bad parts. Breakdowns and absences pause before production so the player can adjust the plan. Bad parts are revealed after the shift and return everything due to ship that day to Raw goods for rework. If those returns exceed raw capacity, the game automatically adds storage at the normal $2 per 5 spaces and reports the cost.
 
 Run `node simulation.test.js` to check process setup, task movement, capacity, costs, and events.
-

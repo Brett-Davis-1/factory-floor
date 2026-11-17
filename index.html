@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Factory Floor</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="station.css">
+  <link rel="stylesheet" href="workspace.css">
+  <link rel="stylesheet" href="flow.css">
+  <link rel="stylesheet" href="events.css">
+  <link rel="stylesheet" href="economy.css">
+  <link rel="stylesheet" href="planning.css">
+  <link rel="stylesheet" href="process.css">
+</head>
+<body>
+  <main class="workspace" id="board">
+    <div class="canvas-grid" aria-hidden="true"></div>
+    <header class="workspace-top">
+      <div class="brand"><span class="brand-mark">▦</span><div><strong>Factory Floor</strong><small>Make the line flow</small></div></div>
+      <div class="top-actions"><button id="helpBtn" class="ghost">How to play</button><button id="resetBtn" class="ghost">Start over</button></div>
+    </header>
+    <section class="workspace-stats" aria-label="Factory status">
+      <div class="metric"><span>DAY</span><strong id="dayValue">1 <em>/ 10</em></strong></div>
+      <div class="metric"><span>CASH</span><strong id="cashValue">$250</strong></div>
+      <div class="metric"><span>SHIPPED</span><strong id="shippedValue">0 <em>/ 30</em></strong></div>
+      <div class="metric"><span>RAW</span><strong id="rawValue">4</strong></div>
+      <div class="metric"><span>FINISHED</span><strong id="finishedValue">0</strong></div>
+      <button class="metric worker-metric" id="workersBtn"><span>WORKERS · $4/DAY EACH</span><strong id="workersValue">3 <em>· $12/day</em></strong></button>
+    </section>
+    <section class="event-widget" id="eventWidget" aria-live="polite"><span class="eyebrow">RANDOM EVENTS</span><strong id="eventTitle">No shift run yet</strong><div id="eventList">Each event has a 15% chance every day.</div><small>Breakdown · absence · bad parts</small></section>
+    <div class="canvas-label" id="canvasLabel">BUILD YOUR LINE <span>→</span></div>
+    <div class="line" id="line"></div>
+    <div class="workspace-bottom">
+      <div class="left-actions"><button class="widget report-widget" id="reportBtn"><span class="eyebrow">SHIFT REPORT</span><strong id="reportWidgetTitle">Build your line</strong><small id="reportWidgetSub">Open report →</small></button><button class="widget process-widget" id="processBtn"><span class="eyebrow">TOTAL PROCESS</span><strong id="processWidgetTitle">6 tasks to place</strong><small>Network + Yamazumi →</small></button></div>
+      <div class="bottom-actions"><button class="widget insight-widget" id="insightBtn"><span class="eyebrow">BOTTLENECK</span><strong id="bottleneckNote">Assembly</strong><small>Open insight →</small></button><div class="run-widget" id="runWidget"><span id="workerSummary" role="status">3 hired · $12/day</span><button id="runBtn" class="primary">Run day 1 <span>→</span></button></div></div>
+    </div>
+    <div class="canvas-tip">Select a station for add icons · use its gear to manage it · drag canvas to pan</div>
+    <dialog id="rawDialog"><div class="dialog-head"><div><span class="eyebrow">MATERIAL SUPPLY</span><h2>Raw goods</h2></div><button id="closeRaw" class="ghost">Close</button></div><p>Choose how many units to buy for the next shift. Each unit costs $2.</p><div class="station-summary"><span>RAW STORAGE</span><strong id="rawStorageValue">4 / 10</strong><small id="rawStorageNote">6 spaces available before the next shift</small></div><button id="buyRawStorage" class="storage-upgrade">Add 5 raw spaces · $2</button><label class="input-label" for="orderInput">Buy raw material <span>$2 per unit</span></label><div class="order-row"><input id="orderInput" type="number" min="0" max="100" value="6" inputmode="numeric"><span>units</span></div><p class="hint cost" id="orderCost"></p><p class="hint">Purchases arrive at the start of the shift. Bad-part returns may force extra storage at the same $2 per 5 spaces. Raw inventory costs $1 per unit per day to hold.</p></dialog>
+    <dialog id="stationDialog"><div class="dialog-head"><div><span class="eyebrow">STATION DETAILS</span><h2 id="stationTitle"></h2></div><button id="closeStation" class="ghost">Close</button></div><div id="stationDetails"></div></dialog>
+    <dialog id="workerDialog"><div class="dialog-head"><div><span class="eyebrow">WORKFORCE</span><h2>Hire workers</h2></div><button id="closeWorkers" class="ghost">Close</button></div><div id="workerDetails"></div></dialog>
+    <dialog id="storageDialog"><div class="dialog-head"><div><span class="eyebrow">WIP STORAGE</span><h2 id="storageTitle">Queue</h2></div><button id="closeStorage" class="ghost">Close</button></div><div id="storageDetails"></div></dialog>
+    <dialog id="processDialog"><div class="dialog-head"><div><span class="eyebrow">TOTAL PROCESS</span><h2>Tasks, times, and stations</h2></div><button id="closeProcess" class="ghost">Close</button></div><p>Click a task in either view, then place it at a station. Times are minutes per unit; each station has a 40-minute shift.</p><div class="process-tabs"><button id="networkTab" data-view="network">Network</button><button id="yamazumiTab" data-view="yamazumi">Yamazumi</button></div><div id="processView"></div><div id="taskEditor"></div></dialog>
+    <dialog id="reportDialog"><div class="dialog-head"><div><span class="eyebrow">SHIFT REPORT</span><h2 id="reportTitle">Ready for day 1</h2></div><button id="closeReport" class="ghost">Close</button></div><p id="reportText">Set your plan, then run the first day.</p><div id="reportEvents" class="report-events"></div><div id="reportStats" class="report-stats"></div></dialog>
+    <dialog id="eventDialog"><div class="dialog-head"><div><span class="eyebrow">BEFORE THE SHIFT</span><h2>Today's surprise</h2></div></div><div id="eventNotice"></div><div class="event-actions"><button id="adjustPlan" class="ghost">Adjust plan</button><button id="finishShift" class="primary">Complete shift <span>→</span></button></div></dialog>
+    <dialog id="reworkDialog"><div class="dialog-head"><div><span class="eyebrow">SHIFT RESULT</span><h2>Bad parts</h2></div></div><p id="reworkNotice"></p><div class="event-actions"><button id="closeRework" class="primary">Continue <span>→</span></button></div></dialog>
+    <dialog id="insightDialog"><div class="dialog-head"><div><span class="eyebrow">WHAT THE LINE IS TELLING YOU</span><h2>Flow insight</h2></div><button id="closeInsight" class="ghost">Close</button></div><p id="insightText"></p></dialog>
+    <dialog id="helpDialog"><div class="dialog-head"><h2>How to play</h2><button id="closeHelp" class="ghost">Close</button></div><p>Start with a six-task process and no stations. Open Total process to edit task times and use the Network or Yamazumi view to assign tasks. Cut and Drill both precede Glue; then come Fasten, Paint, and Package. Place predecessor tasks at the same or an earlier station.</p><p>Add stations on the canvas for $40 each. Each starts without a worker. You begin with three hired workers; assign them using a station's gear. Every hired worker costs $4 per day.</p><p>Raw goods holds 10 units; add 5 spaces for $2. WIP queues hold 5 units; add one space for $2. A full queue blocks upstream work.</p><p>A breakdown or absence pauses before production so you can adjust your plan. Bad parts are revealed after the shift and returned to Raw goods for rework. Each event has an independent 15% chance.</p><p>Ship 30 units by day 10. Inventory costs $1 per unit per day. Finished goods sell for $10 each, up to daily demand.</p></dialog>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

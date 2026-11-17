@@ -1,0 +1,15 @@
+.workspace-stats .worker-metric{min-width:164px;text-align:left;cursor:pointer;pointer-events:auto;color:inherit}
+.workspace-stats .worker-metric:hover,.workspace-stats .worker-metric:focus-visible{border-color:#74a382;outline:2px solid #b8d9bf;outline-offset:2px}
+.workspace-stats .worker-metric span{white-space:nowrap}
+.build-cost{position:absolute;z-index:6;right:0;bottom:-24px;background:#eaf3e9;border:1px solid #b8d5bc;border-radius:5px;color:#3f7150;font-size:9px;font-weight:800;padding:2px 4px;white-space:nowrap;pointer-events:none}
+.add-icon:disabled{opacity:.35;cursor:not-allowed}
+.queue-box{font:inherit;cursor:pointer;color:inherit}
+.queue-box:hover,.queue-box:focus-visible{border-color:#77a487;outline:2px solid #b9dbc0;outline-offset:2px}
+.queue-box.full{background:#fff0e9;border-color:#d99977}
+.queue-box.full>span,.queue-box.full strong{color:#a7532f}
+.queue-box small{display:block;font-size:9px;color:#5b8d69;margin-top:3px}
+.workforce-actions{display:flex;gap:8px;margin:16px 0}
+.workforce-actions button{border:1px solid #b9d1be;background:#f3f8f3;color:#2c6749;border-radius:7px;padding:9px 10px;font-weight:700;font-size:12px}
+.workforce-actions button:disabled{opacity:.45;cursor:not-allowed}
+.payroll-note{padding:10px;background:#f6f8f2;border-radius:8px}
+@media(max-width:700px){.workspace-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.workspace-stats .worker-metric{min-width:0}.workspace-stats .worker-metric span{font-size:7px;white-space:normal}.workspace-stats .worker-metric strong{font-size:12px}.workspace-stats .worker-metric em{font-size:8px}.build-cost{font-size:8px}.event-widget{top:185px;max-height:115px;overflow:auto}}
